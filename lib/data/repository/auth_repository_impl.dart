@@ -9,4 +9,9 @@ class AuthRepositoryImpl extends AuthRepository {
   Future<Either> signUp(UserCreateModel user) async {
     return await sl<AuthDatasource>().signUp(user);
   }
+  
+  @override
+  Future<Either<dynamic, dynamic>> getAges() async {
+    return await sl<AuthDatasource>().getAges();
+  }
 }

@@ -1,6 +1,7 @@
 import 'package:ecom_app4/common/widgets/app_bottomsheet.dart';
 import 'package:ecom_app4/core/config/theme/app_color.dart';
 import 'package:ecom_app4/presentation/auth/cubit/age_selection_cubit.dart';
+import 'package:ecom_app4/presentation/auth/cubit/display_ages_cubit.dart';
 import 'package:ecom_app4/presentation/auth/cubit/gender_selection_cubit.dart';
 import 'package:ecom_app4/presentation/auth/widget/ages.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,8 @@ class GenderAndAgeSelectionPage extends StatelessWidget {
       body: MultiBlocProvider(
         providers: [
           BlocProvider(create: (context) => GenderSelectionCubit()),
-          BlocProvider(create: (context) => AgeSelectionCubit())
+          BlocProvider(create: (context) => AgeSelectionCubit()),
+          BlocProvider(create: (context) => DisplayAgesCubit()..displayAges())
         ],
         child: SafeArea(
           child: Padding(
@@ -25,7 +27,7 @@ class GenderAndAgeSelectionPage extends StatelessWidget {
                 _tellUsAboutYourself(),
                 _genderWidget(),
                 SizedBox(height: 20,),
-                _ages(context)
+                _ages()
               ],
             )
           ),
@@ -69,7 +71,7 @@ class GenderAndAgeSelectionPage extends StatelessWidget {
     );
   }
 
-  Widget _ages(BuildContext context) {
+  Widget _ages() {
     return BlocBuilder<AgeSelectionCubit, String>(
       builder: (context, state) {
         return Row(
@@ -77,7 +79,16 @@ class GenderAndAgeSelectionPage extends StatelessWidget {
             Expanded(
               child: GestureDetector(
                 onTap: () {
-                  AppBottomsheet.showBottomSheet(context, Ages());
+                  AppBottomsheet.showBottomSheet(
+                    context, 
+                    MultiBlocProvider(
+                      providers: [
+                        BlocProvider.value(value: context.read<DisplayAgesCubit>()),
+                        BlocProvider.value(value: context.read<AgeSelectionCubit>()) 
+                      ], 
+                      child: Ages()
+                    )
+                  );
                 },
                 child: Container(
                   padding: EdgeInsets.all(10),
