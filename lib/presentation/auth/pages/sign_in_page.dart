@@ -1,13 +1,16 @@
 import 'package:ecom_app4/common/widgets/basic_app_bar.dart';
 import 'package:ecom_app4/common/widgets/basic_app_button.dart';
 import 'package:ecom_app4/core/config/navigator/app_navigator.dart';
+import 'package:ecom_app4/data/models/user_signin_request.dart';
 import 'package:ecom_app4/presentation/auth/pages/password_page.dart';
 import 'package:ecom_app4/presentation/auth/pages/sign_up_page.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class SigninScreen extends StatelessWidget {
-  const SigninScreen({super.key});
+  late UserSigninRequest userSigninRequest;
+  final _emailController = TextEditingController();
+  SigninScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,13 +41,17 @@ class SigninScreen extends StatelessWidget {
   }
 
   Widget _emailField() {
-    return TextField(decoration: InputDecoration(hintText: "Enter Email"),);
+    return TextField(
+      controller: _emailController,
+      decoration: InputDecoration(hintText: "Enter Email"),
+    );
   }
 
   Widget _continueButton(BuildContext context) {
     return BasicAppButton(
       onPressed: () {
-        AppNavigator.push(context, PasswordPage());
+        userSigninRequest = UserSigninRequest(email: _emailController.text);
+        AppNavigator.push(context, PasswordPage(userSigninRequest: userSigninRequest));
       }, 
       title: "Continue"
     );

@@ -6,8 +6,8 @@ class UserCreateModel {
   final String lastname;
   final String email;
   final String password;
-  final int? gender;
-  final String? age;
+  int? gender;
+  String? age;
 
   UserCreateModel({
     required this.firstname,

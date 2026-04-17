@@ -1,13 +1,18 @@
 import 'package:ecom_app4/common/widgets/basic_app_bar.dart';
 import 'package:ecom_app4/common/widgets/basic_app_button.dart';
 import 'package:ecom_app4/core/config/navigator/app_navigator.dart';
+import 'package:ecom_app4/data/models/user_create_model.dart';
 import 'package:ecom_app4/presentation/auth/pages/gender_and_age_selection_page.dart';
-import 'package:ecom_app4/presentation/auth/pages/password_page.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class SignupScreen extends StatelessWidget {
-  const SignupScreen({super.key});
+  late UserCreateModel userCreateModel;
+  final firstnameController = TextEditingController();
+  final lastnameController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  SignupScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -44,25 +49,37 @@ class SignupScreen extends StatelessWidget {
   }
 
   Widget _firstnameField() {
-    return TextField(decoration: InputDecoration(hintText: "Firstname"),);
+    return TextField(
+      decoration: InputDecoration(hintText: "Firstname"),
+      controller: firstnameController,
+    );
   }
 
   Widget _lastnameField() {
-    return TextField(decoration: InputDecoration(hintText: "Lastname"),);
+    return TextField(decoration: InputDecoration(hintText: "Lastname"),
+      controller: lastnameController,);
   }
 
   Widget _emailField() {
-    return TextField(decoration: InputDecoration(hintText: "Email"),);
+    return TextField(decoration: InputDecoration(hintText: "Email"),
+      controller: emailController,);
   }
 
   Widget _passwordField() {
-    return TextField(decoration: InputDecoration(hintText: "Password"),);
+    return TextField(decoration: InputDecoration(hintText: "Password"),
+      controller: passwordController,);
   }
 
   Widget _continueButton(BuildContext context) {
     return BasicAppButton(
       onPressed: () {
-        AppNavigator.push(context, GenderAndAgeSelectionPage());
+        userCreateModel = UserCreateModel(
+          firstname: firstnameController.text, 
+          lastname: lastnameController.text, 
+          email: emailController.text, 
+          password: passwordController.text
+        );
+        AppNavigator.push(context, GenderAndAgeSelectionPage(userCreateModel: userCreateModel,));
       },
       title: "Continue"
     );

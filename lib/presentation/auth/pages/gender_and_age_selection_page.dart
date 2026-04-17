@@ -1,5 +1,10 @@
+import 'package:ecom_app4/common/bloc/button_cubit.dart';
+import 'package:ecom_app4/common/bloc/button_state.dart';
 import 'package:ecom_app4/common/widgets/app_bottomsheet.dart';
+import 'package:ecom_app4/common/widgets/basic_reactive_button.dart';
 import 'package:ecom_app4/core/config/theme/app_color.dart';
+import 'package:ecom_app4/data/models/user_create_model.dart';
+import 'package:ecom_app4/domain/auth/usecase/sign_up_usecase.dart';
 import 'package:ecom_app4/presentation/auth/cubit/age_selection_cubit.dart';
 import 'package:ecom_app4/presentation/auth/cubit/display_ages_cubit.dart';
 import 'package:ecom_app4/presentation/auth/cubit/gender_selection_cubit.dart';
@@ -8,7 +13,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class GenderAndAgeSelectionPage extends StatelessWidget {
-  const GenderAndAgeSelectionPage({super.key});
+  UserCreateModel userCreateModel;
+  GenderAndAgeSelectionPage({super.key, required this.userCreateModel});
 
   @override
   Widget build(BuildContext context) {
@@ -17,20 +23,29 @@ class GenderAndAgeSelectionPage extends StatelessWidget {
         providers: [
           BlocProvider(create: (context) => GenderSelectionCubit()),
           BlocProvider(create: (context) => AgeSelectionCubit()),
-          BlocProvider(create: (context) => DisplayAgesCubit()..displayAges())
+          BlocProvider(create: (context) => DisplayAgesCubit()..displayAges()),
+          BlocProvider(create: (context) => ButtonCubit())
         ],
-        child: SafeArea(
-          child: Padding(
-            padding: EdgeInsets.all(20), 
-            child: Column(
-              children: [
-                _tellUsAboutYourself(),
-                _genderWidget(),
-                SizedBox(height: 20,),
-                _ages()
-              ],
+        child: BlocListener<ButtonCubit, ButtonState>(
+          listener: (context, state) {
+            
+          },
+          child: 
+             SafeArea(
+              child: Padding(
+                padding: EdgeInsets.all(20), 
+                child: Column(
+                  children: [
+                    _tellUsAboutYourself(),
+                    _genderWidget(),
+                    SizedBox(height: 20,),
+                    _ages(),
+                    _finishButton(context)
+                  ],
+                )
+              ),
             )
-          ),
+          
         ),
       ),
     );
@@ -98,6 +113,21 @@ class GenderAndAgeSelectionPage extends StatelessWidget {
               ),
             )
           ],
+        );
+      }
+    );
+  }
+
+  Widget _finishButton(BuildContext context) {
+    return Builder(
+      builder: (context) {
+        return BasicReactiveButton(
+          title: "Sign Up.", 
+          onPressed: () {
+            userCreateModel.gender = context.read<GenderSelectionCubit>().state;
+            userCreateModel.age = context.read<AgeSelectionCubit>().state;
+            context.read<ButtonCubit>().execute(usecase: SignUpUsecase(), params: userCreateModel);
+          },
         );
       }
     );

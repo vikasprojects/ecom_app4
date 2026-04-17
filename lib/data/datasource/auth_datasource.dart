@@ -1,11 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:ecom_app4/data/models/user_create_model.dart';
+import 'package:ecom_app4/data/models/user_signin_request.dart';
+import 'package:ecom_app4/injection.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 abstract class AuthDatasource {
   Future<Either> signUp(UserCreateModel user);
   Future<Either> getAges();
+  Future<Either> signIn(UserSigninRequest userSignInReq);
 }
 
 class AuthDatasourceImpl extends AuthDatasource {
@@ -36,6 +39,17 @@ class AuthDatasourceImpl extends AuthDatasource {
     }
     on FirebaseException catch (e) {
       return Left(e.message);
+    }
+  }
+  
+  @override
+  Future<Either> signIn(UserSigninRequest userSignInReq) async {
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(email: userSignInReq.email, password: userSignInReq.password!);
+      return Right("Sign in successful");
+    }
+    on FirebaseException catch (e) {
+      return Left("Error : ${e.message}");
     }
   }
 }
