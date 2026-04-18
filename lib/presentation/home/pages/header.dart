@@ -1,4 +1,5 @@
 import 'package:ecom_app4/presentation/home/cubit/user_cubit.dart';
+import 'package:ecom_app4/presentation/home/cubit/user_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -8,19 +9,32 @@ class Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => UserCubit(),
-      child: SafeArea(
-        child: Scaffold(
-          body: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              _profilePic(),
-              _gender(),
-              _shoping()
-            ],
-          ),
-        ),
-      ),
+      create: (context) => UserCubit()..getUser(),
+      child: BlocBuilder<UserCubit, UserState>(
+        builder: (context, state) {
+          if (state is UserLoadingState) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          else if (state is UserFailedState) {
+            return Center(
+              child: Text(state.errorMessage),
+            );
+          }
+          else if (state is UserSuccessState) {
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                _profilePic(),
+                _gender(),
+                _shoping()
+              ],
+            );
+          }
+          return SizedBox();
+        }
+      )
     );
   }
 

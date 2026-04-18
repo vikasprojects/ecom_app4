@@ -69,7 +69,7 @@ class AuthDatasourceImpl extends AuthDatasource {
     try {
       final currentUser = FirebaseAuth.instance.currentUser;
       final returnturnedData = await FirebaseFirestore.instance.collection("users").doc(currentUser!.uid).get();
-      return Right(returnturnedData);
+      return Right(returnturnedData.data());
     }
     on FirebaseException catch (e) {
       return Left("Error : ${e.code}");
