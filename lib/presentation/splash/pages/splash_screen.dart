@@ -20,7 +20,7 @@ class SplashScreen extends StatelessWidget {
           Navigator.push(context, MaterialPageRoute(builder: (context) => SigninScreen()));
         }
         else if (state is AuthenticatedState) {
-          AppNavigator.push(context, Header());
+          AppNavigator.push(context, HomePage());
         }
       },
       child: Scaffold(
