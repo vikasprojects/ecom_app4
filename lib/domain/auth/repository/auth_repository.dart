@@ -6,4 +6,6 @@ abstract class AuthRepository {
   Future<Either> signUp(UserCreateModel user);
   Future<Either> getAges();
   Future<Either> signIn(UserSigninRequest userSignInReq);
+  Future<bool> isLoggedIn();
+  Future<Either> getUser();
 }
