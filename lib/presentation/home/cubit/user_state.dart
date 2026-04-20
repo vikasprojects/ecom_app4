@@ -1,4 +1,4 @@
-import 'package:ecom_app4/data/datasource/user_model.dart';
+import 'package:ecom_app4/data/auth/datasource/user_model.dart';
 
 abstract class UserState {}
 

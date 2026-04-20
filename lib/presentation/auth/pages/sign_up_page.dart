@@ -1,7 +1,7 @@
 import 'package:ecom_app4/common/widgets/basic_app_bar.dart';
 import 'package:ecom_app4/common/widgets/basic_app_button.dart';
 import 'package:ecom_app4/core/config/navigator/app_navigator.dart';
-import 'package:ecom_app4/data/models/user_create_model.dart';
+import 'package:ecom_app4/data/auth/models/user_create_model.dart';
 import 'package:ecom_app4/presentation/auth/pages/gender_and_age_selection_page.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';

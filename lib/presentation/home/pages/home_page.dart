@@ -1,3 +1,4 @@
+import 'package:ecom_app4/presentation/category/pages/category.dart';
 import 'package:ecom_app4/presentation/home/pages/header.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +11,8 @@ class HomePage extends StatelessWidget {
       child: Scaffold(
         body: Column(
           children: [
-            Header()
+            Header(),
+            Category()
           ],
         ),
       ),

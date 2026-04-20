@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
-import 'package:ecom_app4/data/datasource/auth_datasource.dart';
-import 'package:ecom_app4/data/datasource/user_model.dart';
-import 'package:ecom_app4/data/models/user_create_model.dart';
-import 'package:ecom_app4/data/models/user_signin_request.dart';
+import 'package:ecom_app4/data/auth/datasource/auth_datasource.dart';
+import 'package:ecom_app4/data/auth/datasource/user_model.dart';
+import 'package:ecom_app4/data/auth/models/user_create_model.dart';
+import 'package:ecom_app4/data/auth/models/user_signin_request.dart';
 import 'package:ecom_app4/domain/auth/repository/auth_repository.dart';
 import 'package:ecom_app4/injection.dart';
 

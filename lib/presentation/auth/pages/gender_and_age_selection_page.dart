@@ -3,7 +3,7 @@ import 'package:ecom_app4/common/bloc/button_state.dart';
 import 'package:ecom_app4/common/widgets/app_bottomsheet.dart';
 import 'package:ecom_app4/common/widgets/basic_reactive_button.dart';
 import 'package:ecom_app4/core/config/theme/app_color.dart';
-import 'package:ecom_app4/data/models/user_create_model.dart';
+import 'package:ecom_app4/data/auth/models/user_create_model.dart';
 import 'package:ecom_app4/domain/auth/usecase/sign_up_usecase.dart';
 import 'package:ecom_app4/presentation/auth/cubit/age_selection_cubit.dart';
 import 'package:ecom_app4/presentation/auth/cubit/display_ages_cubit.dart';

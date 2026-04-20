@@ -1,7 +1,7 @@
 import 'package:ecom_app4/common/widgets/basic_app_bar.dart';
 import 'package:ecom_app4/common/widgets/basic_app_button.dart';
 import 'package:ecom_app4/core/config/navigator/app_navigator.dart';
-import 'package:ecom_app4/data/models/user_signin_request.dart';
+import 'package:ecom_app4/data/auth/models/user_signin_request.dart';
 import 'package:ecom_app4/presentation/auth/pages/password_page.dart';
 import 'package:ecom_app4/presentation/auth/pages/sign_up_page.dart';
 import 'package:flutter/gestures.dart';
